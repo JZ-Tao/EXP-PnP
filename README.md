@@ -1,4 +1,4 @@
-# EXP-PnP: General Extended Model for Detail-injected Pan-sharpening with Plug-and-Play Residual Optimization
+## **EXP-PnP: General Extended Model for Detail-injected Pan-sharpening with Plug-and-Play Residual Optimization, TGRS, 2025.**
 This repository contains example code for EXP-PnP.
 <p align="center"><img src="Pnp_EN10_01.png" width="100%" align="center"></p>
 
