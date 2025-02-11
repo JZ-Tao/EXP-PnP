@@ -1,0 +1,29 @@
+function [G,Gt] = defGGt(sensorInf, ratio)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Operators for super-resolution
+% Stanley Chan
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+G  = @(x) fdown(x, sensorInf, ratio);
+Gt = @(x) upf(x, sensorInf, ratio);
+end
+
+function y = fdown(x,sensorInf,ratio)
+	% tmp = imfilter(x,h,'circular');
+	% y = downsample2(tmp,ratio);
+	y = MTF_conv_sample(x, sensorInf, ratio, 1);
+end
+
+function y = upf(x,sensorInf,ratio)
+	% 原始实现
+	% tmp = upsample2(x,ratio);
+	% y = imfilter(tmp,h,'circular');
+	% 二代实现
+ 	y = interpWrapper(x, ratio, sensorInf.upsampling);
+	% 基于原始实现（梯度推导）的上采样。卷积核相同
+% 	[r, c, b] = size(x);
+% 	y = zeros(ratio.*r, ratio.*c, b);
+% 	y(floor(ratio/2)+1:ratio:end,floor(ratio/2)+1:ratio:end,:) = x;
+% 	for i = 1:b
+% 		y(:,:,b) = imfilter(y(:,:,b), sensorInf.PSF_G(:,:,b), 'replicate');
+% 	end
+end
